@@ -1,28 +1,37 @@
-// BMS.ino 
-// Temperature Calculations and ADC for the BMS
-// Authors: Alex Sternberg
-// 			    Thinh Le
-// Property of Spartan Racing Electric 2018
-#include <Linduino.h>
+/**
+ * BMS.ino 
+ * Temperature Calculations and ADC for the BMS
+ * Authors: Alex Sternberg
+ *          Thinh Le
+ * Property of Spartan Racing Electric 2018
+ */
+
+/* GENERAL LIBRARIES */
 #include <SoftwareSerial.h>
 #include <Arduino.h>
 #include <stdint.h>
-#include "Linduino.h"
+#include <SPI.h>
+/* PROJECT LIBRARIES */
+#include <Linduino.h>
+#include <LTC68041.h>
 #include "LT_SPI.h"
 #include "UserInterface.h"
-#include <LTC68041.h>
-#include <SPI.h>
 #include "src/mcp2515.h"
 #include "src/Canbus.h"  
-
-#define TOTAL_IC 8
+/* PROJECT HEADERS */
+#include "BMS_PRINT.h"
+/* CONSTANTS */
+#define TOTAL_IC          8
 #define TOTAL_BMS_CHANNEL 9 // Supposed to be 9
 #define TOTAL_LTC_CHANNEL 12
-#define DEBUG 1
 #define TEMP_RD_BASE_ADDR 0x28
 #define TEMP_WR_BASE_ADDR 0x29
-#define MAIN_CURR A0
-#define CHGR_CURR A1
+#define MAIN_CURR         A0
+#define CHGR_CURR         A1
+/* DEBUG */
+#define NO_READ_CELLS     1
+#define NO_WAKEUP         1
+#define DEBUG             1
 
 float voltages[TOTAL_IC][TOTAL_LTC_CHANNEL];
 float current;
@@ -30,7 +39,6 @@ float resistance[TOTAL_IC][9];
 
 void setup() {
   Serial.begin(115200);  
-
   pinMode(6, OUTPUT);
   digitalWrite(6, HIGH); //setup fault
   
@@ -40,9 +48,10 @@ void setup() {
 
   init_cfg();        //initialize the 6804 configuration array to be written
 
-// so you can build a binary without logging statements
-// since printing is the slowest operation one can do on a mcu
-// hence compiler dierctives to tell it to not build those lines in
+  BmsPrint bp;
+  // so you can build a binary without logging statements
+  // since printing is the slowest operation one can do on a mcu
+  // hence compiler dierctives to tell it to not build those lines in
   if (mcp2515_init(CANSPEED_500)) {
 #if (DEBUG) 
     Serial.println("CAN init OK"); 
@@ -111,73 +120,6 @@ float read_current(uint8_t sensor) {
   return 200 * (measure / 820);
 }
 
-#if (DEBUG)
-
-void print_txdata(uint8_t tx_cfg[][6])
-{
-  Serial.println("Sent Bytes ");
-  for (int current_ic = 0; current_ic<TOTAL_IC; current_ic++)
-  {
-    Serial.print(" IC ");
-    Serial.print(current_ic + 1, DEC);
-    Serial.print(": 0x");
-    serial_print_hex(tx_cfg[current_ic][0]);
-    Serial.print(", 0x");
-    serial_print_hex(tx_cfg[current_ic][1]);
-    Serial.print(", 0x");
-    serial_print_hex(tx_cfg[current_ic][2]);
-    Serial.print(", 0x");
-    serial_print_hex(tx_cfg[current_ic][3]);
-    Serial.print(", 0x");
-    serial_print_hex(tx_cfg[current_ic][4]);
-    Serial.print(", 0x");
-    serial_print_hex(tx_cfg[current_ic][5]);
-    Serial.println();
-  }
-  Serial.println();
-}
-
-void print_rxdata(uint8_t rx_cfg[][8])
-{
-  Serial.println("Received Bytes ");
-  for (int current_ic = 0; current_ic<TOTAL_IC; current_ic++)
-  {
-    Serial.print(" IC ");
-    Serial.print(current_ic + 1, DEC);
-    Serial.print(": 0x");
-    serial_print_hex(rx_cfg[current_ic][0]);
-    Serial.print(", 0x");
-    serial_print_hex(rx_cfg[current_ic][1]);
-    Serial.print(", 0x");
-    serial_print_hex(rx_cfg[current_ic][2]);
-    Serial.print(", 0x");
-    serial_print_hex(rx_cfg[current_ic][3]);
-    Serial.print(", 0x");
-    serial_print_hex(rx_cfg[current_ic][4]);
-    Serial.print(", 0x");
-    serial_print_hex(rx_cfg[current_ic][5]);
-    Serial.print(", Received PEC: 0x");
-    serial_print_hex(rx_cfg[current_ic][6]);
-    Serial.print(", 0x");
-    serial_print_hex(rx_cfg[current_ic][7]);
-    Serial.println();
-  }
-  Serial.println();
-}
-
-void serial_print_hex(uint8_t data)
-{
-  if (data < 16)
-  {
-    Serial.print("0");
-    Serial.print((byte)data, HEX);
-  }
-  else
-    Serial.print((byte)data, HEX);
-}
-
-#endif
-
 // Our execution of functions
 void loop() {
   char input;
@@ -188,7 +130,7 @@ void loop() {
   // Serial.println("Test");
   uint16_t cells[TOTAL_IC][TOTAL_LTC_CHANNEL];
   uint16_t aux[TOTAL_IC][6];
-  uint8_t* pec_data; // Store pec calcs here
+  uint8_t * pec_data; // Store pec calcs here
   wakeup_sleep(); // Sleep
   Serial.print(0);
   // BMS Declaration and Constructor
@@ -252,41 +194,45 @@ void loop() {
                                     {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}};  // test with print rx                                   
     // Serial.println("before write");
     LTC6804_rdcfg(TOTAL_IC, rx_cfg1);    
-    // print_rxdata(rx_cfg1);
+    // bp.print_rxdata(rx_cfg1);
     // Serial.println("write");
     LTC6804_wrcfg(TOTAL_IC, wrcfga);
-    // print_txdata(wrcfga); // REFUP
+    // bp.print_txdata(wrcfga); // REFUP
     // Serial.println("after write");
     LTC6804_rdcfg(TOTAL_IC, rx_cfg2);
-    // print_rxdata(rx_cfg2);
+    // bp.print_rxdata(rx_cfg2);
 
-    // read_cells(bms->voltages); // TODO        
-    // // read_current(current);
-    // // test 
-    // print_txdata(bms->tx_cfg);
-    // print_rxdata(bms->rx_cfg);    
+    #if NO_READ_CELLS
+    read_cells(bms->voltages); // TODO        
+    // read_current(current);
+    // test 
+    bp.print_txdata(bms->tx_cfg);
+    bp.print_rxdata(bms->rx_cfg);    
+    #endif 
 
+    #if NO_WAKEUP
     /* Test */
-    // uint8_t *store_data; 
-    // int size = 0;
-    // //This will guarantee that the LTC6804 isoSPI port is awake.
-    // wakeup_sleep(); // TODO 
-    // bms->wakeup_sleep = true; 
-    // // // WRCFGA: 00000000001
-    // // LTC6804_wrcfg(TOTAL_IC, bms->tx_cfg);
-    // // Read register A voltage 
-    // LTC6804_rdcv_reg(1, TOTAL_IC, store_data);
-    // size = sizeof(store_data) / sizeof(uint8_t);
-    // for(int i = 0; i < size; i++)
-    // {
-    //   if(store_data[i] != NULL)
-    //   {
-    //     Serial.println(store_data[i]);
-    //   }
-    //   else{
-    //     Serial.println("NULL Terminated");
-    //   }
-    // }
+    uint8_t *store_data; 
+    int size = 0;
+    //This will guarantee that the LTC6804 isoSPI port is awake.
+    wakeup_sleep(); // TODO 
+    bms->wakeup_sleep = true; 
+    // // WRCFGA: 00000000001
+    // LTC6804_wrcfg(TOTAL_IC, bms->tx_cfg);
+    // Read register A voltage 
+    LTC6804_rdcv_reg(1, TOTAL_IC, store_data);
+    size = sizeof(store_data) / sizeof(uint8_t);
+    for(int i = 0; i < size; i++)
+    {
+      if(store_data[i] != NULL)
+      {
+        Serial.println(store_data[i]);
+      }
+      else{
+        Serial.println("NULL Terminated");
+      }
+    }
+    #endif 
   } while(input != 'q');
 }
 

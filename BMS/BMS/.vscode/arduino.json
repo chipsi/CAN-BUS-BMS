@@ -1,6 +1,6 @@
 {
-    "port": "COM7",
+    "port": "COM1",
     "board": "arduino:avr:uno",
-    "sketch": "Charging.ino",
+    "sketch": "BMS.ino",
     "output": "./build"
 }

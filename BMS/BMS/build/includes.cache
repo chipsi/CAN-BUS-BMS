@@ -11,18 +11,8 @@
   },
   {
     "Sourcefile": "c:\\Users\\Timothy_Le\\Documents\\SRE\\src\\BMS_\\BMS\\BMS\\build\\sketch\\BMS.ino.cpp",
-    "Include": "Linduino.h",
-    "Includepath": "C:\\Users\\Timothy_Le\\Documents\\SRE\\SRE_SDK_2018\\Arduino\\LTSketchbook\\libraries\\Linduino"
-  },
-  {
-    "Sourcefile": "c:\\Users\\Timothy_Le\\Documents\\SRE\\src\\BMS_\\BMS\\BMS\\build\\sketch\\BMS.ino.cpp",
     "Include": "SoftwareSerial.h",
     "Includepath": "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\libraries\\SoftwareSerial\\src"
-  },
-  {
-    "Sourcefile": "c:\\Users\\Timothy_Le\\Documents\\SRE\\src\\BMS_\\BMS\\BMS\\build\\sketch\\BMS.ino.cpp",
-    "Include": "LT_SPI.h",
-    "Includepath": "C:\\Users\\Timothy_Le\\Documents\\SRE\\SRE_SDK_2018\\Arduino\\LTSketchbook\\libraries\\LT_SPI"
   },
   {
     "Sourcefile": "c:\\Users\\Timothy_Le\\Documents\\SRE\\src\\BMS_\\BMS\\BMS\\build\\sketch\\BMS.ino.cpp",
@@ -31,8 +21,8 @@
   },
   {
     "Sourcefile": "c:\\Users\\Timothy_Le\\Documents\\SRE\\src\\BMS_\\BMS\\BMS\\build\\sketch\\BMS.ino.cpp",
-    "Include": "UserInterface.h",
-    "Includepath": "C:\\Users\\Timothy_Le\\Documents\\SRE\\SRE_SDK_2018\\Arduino\\LTSketchbook\\libraries\\UserInterface"
+    "Include": "Linduino.h",
+    "Includepath": "C:\\Users\\Timothy_Le\\Documents\\SRE\\SRE_SDK_2018\\Arduino\\LTSketchbook\\libraries\\Linduino"
   },
   {
     "Sourcefile": "c:\\Users\\Timothy_Le\\Documents\\SRE\\src\\BMS_\\BMS\\BMS\\build\\sketch\\BMS.ino.cpp",
@@ -41,6 +31,21 @@
   },
   {
     "Sourcefile": "c:\\Users\\Timothy_Le\\Documents\\SRE\\src\\BMS_\\BMS\\BMS\\build\\sketch\\BMS.ino.cpp",
+    "Include": "LT_SPI.h",
+    "Includepath": "C:\\Users\\Timothy_Le\\Documents\\SRE\\SRE_SDK_2018\\Arduino\\LTSketchbook\\libraries\\LT_SPI"
+  },
+  {
+    "Sourcefile": "c:\\Users\\Timothy_Le\\Documents\\SRE\\src\\BMS_\\BMS\\BMS\\build\\sketch\\BMS.ino.cpp",
+    "Include": "UserInterface.h",
+    "Includepath": "C:\\Users\\Timothy_Le\\Documents\\SRE\\SRE_SDK_2018\\Arduino\\LTSketchbook\\libraries\\UserInterface"
+  },
+  {
+    "Sourcefile": "c:\\Users\\Timothy_Le\\Documents\\SRE\\src\\BMS_\\BMS\\BMS\\build\\sketch\\BMS.ino.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "c:\\Users\\Timothy_Le\\Documents\\SRE\\src\\BMS_\\BMS\\BMS\\build\\sketch\\BMS_PRINT.cpp",
     "Include": "",
     "Includepath": ""
   },
@@ -70,22 +75,22 @@
     "Includepath": ""
   },
   {
-    "Sourcefile": "C:\\Users\\Timothy_Le\\Documents\\SRE\\SRE_SDK_2018\\Arduino\\LTSketchbook\\libraries\\LT_SPI\\LT_SPI.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
     "Sourcefile": "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\libraries\\SPI\\src\\SPI.cpp",
     "Include": "",
     "Includepath": ""
   },
   {
-    "Sourcefile": "C:\\Users\\Timothy_Le\\Documents\\SRE\\SRE_SDK_2018\\Arduino\\LTSketchbook\\libraries\\UserInterface\\UserInterface.cpp",
+    "Sourcefile": "C:\\Users\\Timothy_Le\\Documents\\SRE\\SRE_SDK_2018\\Arduino\\LTSketchbook\\libraries\\LTC68041\\LTC68041.cpp",
     "Include": "",
     "Includepath": ""
   },
   {
-    "Sourcefile": "C:\\Users\\Timothy_Le\\Documents\\SRE\\SRE_SDK_2018\\Arduino\\LTSketchbook\\libraries\\LTC68041\\LTC68041.cpp",
+    "Sourcefile": "C:\\Users\\Timothy_Le\\Documents\\SRE\\SRE_SDK_2018\\Arduino\\LTSketchbook\\libraries\\LT_SPI\\LT_SPI.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Timothy_Le\\Documents\\SRE\\SRE_SDK_2018\\Arduino\\LTSketchbook\\libraries\\UserInterface\\UserInterface.cpp",
     "Include": "",
     "Includepath": ""
   }
