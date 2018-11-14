@@ -1,0 +1,10 @@
+{
+  "builtInLibrariesFolders": "C:\\Program Files (x86)\\Arduino\\libraries",
+  "customBuildProperties": "build.path=c:\\Users\\Timothy_Le\\Documents\\SRE\\src\\BMS_\\BMS\\BMS\\build,build.warn_data_percentage=75,runtime.tools.avrdude.path=C:\\Program Files (x86)\\Arduino\\hardware\\tools\\avr,runtime.tools.arduinoOTA.path=C:\\Program Files (x86)\\Arduino\\hardware\\tools\\avr,runtime.tools.avr-gcc.path=C:\\Program Files (x86)\\Arduino\\hardware\\tools\\avr",
+  "fqbn": "arduino:avr:uno",
+  "hardwareFolders": "C:\\Program Files (x86)\\Arduino\\hardware",
+  "otherLibrariesFolders": "C:\\Users\\Timothy_Le\\Documents\\SRE\\SRE_SDK_2018\\Arduino\\LTSketchbook\\libraries",
+  "runtime.ide.version": "10804",
+  "sketchLocation": "c:\\Users\\Timothy_Le\\Documents\\SRE\\src\\BMS_\\BMS\\BMS\\BMS_TEMP.cpp",
+  "toolsFolders": "C:\\Program Files (x86)\\Arduino\\tools-builder,C:\\Program Files (x86)\\Arduino\\hardware\\tools\\avr"
+}
